@@ -1,5 +1,7 @@
 package com.dwbook.phonebook.resources;
 
+import com.dwbook.phonebook.representations.Contact;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
@@ -12,12 +14,12 @@ public class ContactResource {
     @Path("/{id}")
     public Response getContact(@PathParam("id") int id) {
         return Response
-                .ok("{contact_id: " + id + ", name: \"Dummy Name\", phone: \"+0123456789\" }")
+                .ok(new Contact( id, "John", "Doe", "+123456789"))
         .build();
     }
 
     @POST
-    public Response createContact(@FormParam("name") String name, @FormParam("phone") String phone) {
+    public Response createContact(Contact contact) {
         return Response
                 .created(null)
                 .build();
@@ -33,9 +35,9 @@ public class ContactResource {
 
     @PUT
     @Path("/{id}")
-    public Response updateContact(@PathParam("id") int id, @FormParam("name") String name, @FormParam("phone") String phone) {
+    public Response updateContact(@PathParam("id") int id, Contact contact) {
         return Response
-                .ok("{contact_id: "+ id +", name: \""+ name +"\",phone: \""+ phone +"\" }")
+                .ok(new Contact(id, contact.getFirstName(), contact.getLastName(), contact.getPhone()))
         .build();
     }
 }
