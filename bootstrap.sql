@@ -1,4 +1,4 @@
-CREATE DATABASE 'phonebook';
+CREATE DATABASE IF NOT EXISTS phonebook;
 CREATE USER 'phonebookuser'@'localhost' IDENTIFIED BY 'phonebookpassword';
 GRANT ALL ON phonebook.* TO 'phonebookuser'@'localhost';
 USE phonebook;
