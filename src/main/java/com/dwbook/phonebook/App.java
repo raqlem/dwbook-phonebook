@@ -7,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.dropwizard.Application;
-import io.dropwizard.Configuration;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+
 
 
 public class App extends Application<PhonebookConfiguration>
@@ -31,7 +31,8 @@ public class App extends Application<PhonebookConfiguration>
 
         final DBIFactory factory = new DBIFactory();
         final DBI jdbi = factory.build(e, c.getDataSourceFactory(), "mysql");
-        e.jersey().register(new ContactResource(jdbi));
+        e.jersey().register(new ContactResource(jdbi, e.getValidator()));
+
     }
 
 }
