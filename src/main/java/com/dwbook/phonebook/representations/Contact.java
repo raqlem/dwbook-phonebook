@@ -3,26 +3,24 @@ package com.dwbook.phonebook.representations;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import java.util.Objects;
+
 public class Contact {
-    private final int id;
+    private int id;
 
     @NotBlank
     @Length(min=2, max=255)
-    private final String firstName;
+    private String firstName;
 
     @NotBlank
     @Length(min=2, max=255)
-    private final String lastName;
+    private String lastName;
 
     @NotBlank
     @Length(min=2, max=30)
-    private final String phone;
+    private String phone;
 
     public Contact() {
-        this.id = 0;
-        this.firstName = null;
-        this.lastName = null;
-        this.phone = null;
     }
 
     public Contact(int id, String firstName, String lastName,
@@ -48,4 +46,27 @@ public class Contact {
     public String getPhone() {
         return phone;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Contact)) {
+            return false;
+        }
+
+        final Contact that = (Contact) o;
+
+        return Objects.equals(this.getId(), that.getId()) &&
+                Objects.equals(this.getFirstName(), that.getFirstName()) &&
+                Objects.equals(this.getLastName(), that.getLastName()) &&
+                Objects.equals(this.getPhone(), that.getPhone());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getFirstName(), getLastName(), getPhone());
+    }
+
 }
